@@ -7,8 +7,13 @@ const TodoList = () => {
 
   useEffect(() => {
     const storedTodos = localStorage.getItem("todo");
-    if (storedTodos) {
-      setTodo(JSON.parse(storedTodos));
+
+    if (storedTodos !== null) {
+      try {
+        setTodo(JSON.parse(storedTodos)); // Safely parse and set state
+      } catch (error) {
+        console.error("Error parsing stored todos:", error);
+      }
     }
   }, []);
 
@@ -51,7 +56,8 @@ const TodoList = () => {
 
   const handleClearToDO=()=>{
     
-    setTodo([])
+    setTodo([]);
+    localStorage.removeItem("todo");
   }
   return (
     <>
@@ -70,9 +76,9 @@ const TodoList = () => {
       </div>
 
       <div className="to_do_list">
-        <ul>
+        <ul className = "todo-list">
           {todos.map((todo, index) => (
-            <li
+            <li className="todo-item"
               key={index}
               style={{
                 textDecoration: todo.deleted ? "line-through" : "none",
@@ -87,7 +93,7 @@ const TodoList = () => {
                 type="checkbox" checked = {todo.checked}
                 onChange={() => handleCheckBoxChange(index)}
               />{" "}
-              {todo.text}
+                <span className="todo-text">{todo.text}</span>
               <button style={{margin:"5px"}}>Edit</button>{" "}
               <button style={{margin:"5px"}}
                 onClick={() => {

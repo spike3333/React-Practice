@@ -22,14 +22,39 @@ text-align: left !important;
 padding: 5px;
 }
 
+
+/* 
 .to_do_list{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: relative;
-    left: 30%; */
-}
+    position: relative;
+    left: 30%;
+} */
 
-.to_do_list > ul {
+/* .to_do_list > ul {
    list-style-type: none;
-}
+} */
+
+
+.todo-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0;
+  }
+  
+  .todo-item {
+    display: flex; /* Flexbox for horizontal alignment */
+    justify-content: space-between; /* Space between text and buttons */
+    align-items: center; /* Vertically center the items */
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Adds a border for better separation */
+  }
+  
+  .todo-text {
+    flex-grow: 1; /* Take up the remaining space */
+    margin-right: 20px; /* Space between text and buttons */
+  }
+  
+  button {
+    margin-left: 10px !important; /* Adds space between buttons */
+  }
