@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./todolist.css";
+import { PiTrashSimpleLight } from "react-icons/pi";
+import { LuPenSquare } from "react-icons/lu";
+import { MdOutlineCleaningServices } from "react-icons/md";
+import { PiNotepadDuotone } from "react-icons/pi";
+import { MdOutlineDoneOutline } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling
 
 const TodoList = () => {
   const [todos, setTodo] = useState([]);
@@ -29,10 +36,14 @@ const TodoList = () => {
     console.log(input);
   };
   const handleAddToDO = () => {
-    if (input.trim() === "") return;
+    if (input.trim() === ""){
+      alert("Please enter a valid task!");
+      return;
+    } 
     setTodo([...todos, { text: input, checked: false, deleted: false }]);
     console.log(todos);
     setInput("");
+    alert("Todo Added!");
   };
 
   const handleCheckBoxChange = (index) => {
@@ -46,14 +57,19 @@ const TodoList = () => {
   };
 
   const handleDelete = (index) => {
-    const filterdTodo = todos.filter((todo, i) => i !== index);
-    console.log(todos);
-    setTodo(filterdTodo);
+    const confirmDelete = window.confirm("Are you sure you want to delete this todo?");
+    if(confirmDelete){
+      const filterdTodo = todos.filter((todo, i) => i !== index);
+      console.log(todos);
+      setTodo(filterdTodo);
+      alert("To Do Deleted!")
+    }
   };
 
   const handleClearToDO = () => {
     setTodo([]);
     localStorage.removeItem("todo");
+    alert("Todo List Cleared!");
   };
 
   const handleEdit = (index) => {
@@ -72,6 +88,7 @@ const TodoList = () => {
     setTodo(updateData);
     setInput("");
     setEditIndex(null);
+    alert("Todo Updated!");
   };
   return (
     <>
@@ -86,12 +103,12 @@ const TodoList = () => {
           onChange={handleInputChange}
         ></input>
         {editIndex !== null ? (
-          <button onClick={handleUpdateToDo}>Update To Do</button>
+          <button onClick={handleUpdateToDo}> <LuPenSquare style={{color:"#ff6808", fontSize:"20px"}}/> Update To Do</button>
           
         ) : (
-          <button onClick={handleAddToDO}>Add To Do</button>
+          <button onClick={handleAddToDO}><PiNotepadDuotone style={{color:"green", fontSize:"20px"}} />Add To Do</button>
         )}
-        <button onClick={handleClearToDO}>Clear To Do</button>
+        <button onClick={handleClearToDO}><MdOutlineCleaningServices style={{color:"skyblue", fontSize:"20px"}} />Clear To Do</button>
       </div>
 
       <div className="to_do_list">
@@ -115,14 +132,14 @@ const TodoList = () => {
                 checked={todo.checked}
                 onChange={() => handleCheckBoxChange(index)}
               />
-              <span className="todo-text">{todo.text}</span>
-              <button
+              <span className="todo-text">{todo.text} {todo.checked ? <span style={{color:"#a657ab", marginLeft:"10px", fontSize:"15px"}}>Milestone Achieved <MdOutlineDoneOutline /></span> : <span></span>}</span> 
+              <button disabled={todo.checked && "disabled"}
                 style={{ margin: "5px" }}
                 onClick={() => {
                   handleEdit(index);
                 }}
               >
-                Edit
+                <LuPenSquare style={{color:"#ff6808", fontSize:"20px"}}/>Edit
               </button>
               <button
                 style={{ margin: "5px" }}
@@ -130,7 +147,7 @@ const TodoList = () => {
                   handleDelete(index);
                 }}
               >
-                Delete
+               <PiTrashSimpleLight style={{color:"red", fontSize:"20px"}} /> Delete
               </button>
             </li>
           ))}
