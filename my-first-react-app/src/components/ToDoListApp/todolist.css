@@ -1,0 +1,35 @@
+body{
+    margin: 0;
+    padding: o;
+    box-sizing: border-box;
+}
+
+.to_do_div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.to_do_div > input[type="text"]{
+    width: 200px !important;
+}
+
+.to_do_input{
+text-align: left !important;
+padding: 5px;
+}
+
+.to_do_list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative;
+    left: 30%; */
+}
+
+.to_do_list > ul {
+   list-style-type: none;
+}
