@@ -23,14 +23,10 @@ padding: 5px;
 }
 
 
-/* 
+
 .to_do_list{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 30%;
-} */
+    width: 100%;
+}
 
 /* .to_do_list > ul {
    list-style-type: none;
@@ -50,11 +46,23 @@ padding: 5px;
     border-bottom: 1px solid #ccc; /* Adds a border for better separation */
   }
   
-  .todo-text {
-    flex-grow: 1; /* Take up the remaining space */
-    margin-right: 20px; /* Space between text and buttons */
-  }
+.todo-text {
+  white-space: normal; /* Allows wrapping */
+  word-wrap: break-word; /* Breaks long words */
+  word-break: break-word; /* Ensures words break if too long */
+  max-width: 100%; /* Prevents text from overflowing the screen */
+  flex-grow: 1; /* Take up the remaining space */
+  margin-right: 20px; /* Space between text and buttons */
+}
   
   button {
     margin-left: 10px !important; /* Adds space between buttons */
+  }
+
+
+  input[type="checkbox"] {
+    width: 20px; /* Adjust this size as needed */
+    height: 20px; /* Adjust this size as needed */
+    margin-right: 10px; /* Space between checkbox and text */
+    vertical-align: middle; /* Aligns checkbox with text vertically */
   }
